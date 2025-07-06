@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-background-primary: #100e1c;
+  --color-background-secondary: #1f1e31;
+  --color-background-blue: #140e33;
+
+  --color-base-grey: #b1b1b1;
+  --color-base-primary: #6b54f9;
+  --color-base-secondary: #f23457;
+
+  --color-ui-green: #37cb4f;
+  --color-ui-red: #e63c19;
+  --color-ui-ask: #f6465d;
+  --color-ui-bid: #2ebd85;
+
+  --border-width-thin: 0.5px;
+  --border-width-normal: 1px;
+}
+
+@layer base {
+  * {
+    scrollbar-color: #0d0e0f #3c3c3c;
+    font-family: "Karla", serif;
+  }
+
+  body {
+    @apply text-white bg-background-primary overflow-x-hidden overflow-y-scroll;
+  }
+
+  body {
+    max-width: 100vw;
+    max-width: 100dvw;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    background: #0d0e0f;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #3c3c3c;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #0d0e0f;
+    border-radius: 0;
+    border: #3c3c3c solid 1px;
+  }
+}
