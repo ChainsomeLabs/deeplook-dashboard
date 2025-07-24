@@ -1,4 +1,4 @@
-import type { Orderbook, Pool } from "./response";
+import type { Pool } from "../common/types";
 
 const BASE_URL = "https://api.sui.carmine.finance";
 
@@ -31,6 +31,4 @@ async function apiFetch<T>(
 
 export const api = {
   getPools: async () => await apiFetch<Pool[]>("/get_pools"),
-  getOrderbook: async (poolName: string) =>
-    await apiFetch<Orderbook>(`/orderbook/${poolName}`),
 };

@@ -1,0 +1,44 @@
+import type { Order, Orderbook, OrderbookWithTotal } from "../common/types";
+
+const calculateRunningTotal = (
+  orders: Order[]
+): { order: Order; total: number }[] => {
+  const result: { order: Order; total: number }[] = [];
+  let total = 0;
+
+  for (let i = 0; i < orders.length; i++) {
+    const order = orders[i];
+    total += Number(order.size);
+    result.push({ order, total });
+  }
+
+  return result;
+};
+
+type OrderbookTransformOptions = {
+  levels?: number;
+};
+
+/**
+ * Keeps chosen amount of levels from the center and calculates running total.
+ */
+export const transformOrderbook = (
+  ob: Orderbook,
+  options: OrderbookTransformOptions = {}
+): OrderbookWithTotal => {
+  const { levels = 10 } = options;
+  const asks = calculateRunningTotal(
+    ob.asks.sort((a, b) => Number(a.price) - Number(b.price)).slice(0, levels)
+  ).sort((a, b) => b.order.price - a.order.price);
+  const bids = calculateRunningTotal(
+    ob.bids.sort((a, b) => Number(b.price) - Number(a.price)).slice(0, levels)
+  );
+
+  const max = Math.max(...[...ob.asks, ...ob.bids].map((o) => Number(o.size)));
+
+  return {
+    asks,
+    bids,
+    max,
+  };
+};

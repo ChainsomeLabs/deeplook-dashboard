@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import { AppLayout } from "./AppLayout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Home, NotFound, Pool } from "../pages";
+import { HomePage, NotFoundPage, PoolPage } from "../pages";
 
 const queryClient = new QueryClient();
 
@@ -10,9 +10,9 @@ const App = () => (
     <QueryClientProvider client={queryClient}>
       <Routes>
         <Route element={<AppLayout />}>
-          <Route index element={<Home />} />
-          <Route path="pool/:poolName" element={<Pool />} />
-          <Route path="*" element={<NotFound />} />
+          <Route index element={<HomePage />} />
+          <Route path="pool/:poolName" element={<PoolPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </QueryClientProvider>

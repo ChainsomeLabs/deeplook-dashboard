@@ -1,5 +1,5 @@
-import { Home } from "./Home";
-import { NotFound } from "./NotFound";
-import { Pool } from "./Pool";
+import { HomePage } from "./Home";
+import { NotFoundPage } from "./NotFound";
+import { PoolPage } from "./Pool";
 
-export { Home, NotFound, Pool };
+export { HomePage, NotFoundPage, PoolPage };

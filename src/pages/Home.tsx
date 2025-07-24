@@ -1,6 +1,6 @@
 import { PoolsDropdown } from "../pools";
 
-export const Home = () => (
+export const HomePage = () => (
   <div>
     <PoolsDropdown />
   </div>

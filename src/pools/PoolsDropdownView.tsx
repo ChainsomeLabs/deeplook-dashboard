@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import type { Pool } from "../api/response";
+import type { Pool } from "../common/types";
 
 type Props = {
   data: Pool[];

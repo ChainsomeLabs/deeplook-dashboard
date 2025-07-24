@@ -1,3 +1,24 @@
+export type Order = {
+  price: number;
+  size: number;
+};
+
+export type Orderbook = {
+  bids: Order[];
+  asks: Order[];
+};
+
+export type OrderWithTotal = {
+  order: Order;
+  total: number;
+};
+
+export type OrderbookWithTotal = {
+  bids: OrderWithTotal[];
+  asks: OrderWithTotal[];
+  max: number;
+};
+
 export type Pool = {
   pool_id: string;
   pool_name: string;
@@ -12,11 +33,4 @@ export type Pool = {
   min_size: number;
   lot_size: number;
   tick_size: number;
-};
-
-export type Order = [string, string];
-
-export type Orderbook = {
-  bids: Order[];
-  asks: Order[];
 };
