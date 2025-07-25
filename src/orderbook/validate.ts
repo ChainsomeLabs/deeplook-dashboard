@@ -1,4 +1,5 @@
 import type { Order, Orderbook, Pool } from "../common/types";
+import { getPriceDec } from "../common/utils";
 
 const isOrderbook = (data: unknown): data is Orderbook => {
   if (
@@ -34,10 +35,9 @@ export const validateOrderbook = (
     return null;
   }
 
-  const { tick_size, lot_size, base_asset_decimals, quote_asset_decimals } =
-    pool;
+  const { lot_size, quote_asset_decimals } = pool;
 
-  const tick = Math.log10(10 ** base_asset_decimals / tick_size);
+  const tick = getPriceDec(pool);
   const lot = Math.log10(10 ** quote_asset_decimals / lot_size);
 
   const roundToStep = (value: number, step: number) => {
@@ -50,7 +50,7 @@ export const validateOrderbook = (
   const validateSide = (side: Order[]): Order[] =>
     side
       .map((entry) => ({
-        price: roundToStep(entry.price, tick),
+        price: Number(entry.price.toFixed(tick)),
         size: roundToStep(entry.size, lot),
       }))
       .filter((entry) => entry.size > 0); // avoid rounding to 0

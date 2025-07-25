@@ -1,4 +1,4 @@
-import { PoolsDropdown } from "../pools";
+import { PoolsDropdown } from "../poolSelect";
 
 export const HomePage = () => (
   <div>

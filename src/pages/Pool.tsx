@@ -1,14 +1,25 @@
 import { useParams } from "react-router";
 import { Orderbook } from "../orderbook";
-import { usePools } from "../pools/usePools";
+import { usePools } from "../poolSelect/usePools";
 import { Loading } from "../common/Loading";
 import type { Pool } from "../common/types";
+import { PoolInfo } from "../poolInfo";
+import { Card } from "../common";
+import { Spread } from "../spread";
 
 export const PoolWithPool = ({ pool }: { pool: Pool }) => (
   <div>
     <h4>{pool.pool_name}</h4>
-    <div className="max-w-[840px] rounded-md border-2 border-gray-500 p-4">
-      <Orderbook pool={pool} />
+    <div className="flex flex-wrap justify-around gap-4">
+      <Card>
+        <PoolInfo pool={pool} />
+      </Card>
+      <Card>
+        <Orderbook pool={pool} />
+      </Card>
+      <Card>
+        <Spread pool={pool} />
+      </Card>
     </div>
   </div>
 );

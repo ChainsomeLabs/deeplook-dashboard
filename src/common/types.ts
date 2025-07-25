@@ -34,3 +34,5 @@ export type Pool = {
   lot_size: number;
   tick_size: number;
 };
+
+export type PropsPool = { pool: Pool };

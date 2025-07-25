@@ -34,7 +34,7 @@ export const transformOrderbook = (
     ob.bids.sort((a, b) => Number(b.price) - Number(a.price)).slice(0, levels)
   );
 
-  const max = Math.max(...[...ob.asks, ...ob.bids].map((o) => Number(o.size)));
+  const max = Math.max(...[...asks, ...bids].map((o) => Number(o.total)));
 
   return {
     asks,
