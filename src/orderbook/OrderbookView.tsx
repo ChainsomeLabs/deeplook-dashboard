@@ -9,15 +9,15 @@ export const OrderbookView = ({ orderbook, pool }: Props) => {
   return (
     <div>
       <div className="relative flex pb-2">
-        <p className="flex-[0.5] text-xl text-start relative">
-          Price ({quote_asset_symbol})
-        </p>
-        <p className="flex-1 text-xl text-end">
-          Quantity ({base_asset_symbol})
-        </p>
-        <p className="flex-1 text-xl text-end tabular-nums">
-          Total quantity ({base_asset_symbol})
-        </p>
+        <h5 className="flex-[0.5] text-start relative">
+          Price{"\u00A0"}({quote_asset_symbol})
+        </h5>
+        <h5 className="flex-1 text-end">
+          Quantity{"\u00A0"}({base_asset_symbol})
+        </h5>
+        <h5 className="flex-1 text-end tabular-nums">
+          Total{"\u00A0"}({base_asset_symbol})
+        </h5>
       </div>
       {asks.map((ask, i) => (
         <OrderbookItemView key={i} data={ask} max={max} type="ask" />

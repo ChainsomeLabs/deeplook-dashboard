@@ -5,7 +5,7 @@ import { Loading } from "../common/Loading";
 import type { Pool } from "../common/types";
 import { PoolInfo } from "../poolInfo";
 import { Card } from "../common";
-import { Spread } from "../spread";
+import { Depth } from "../depth/Depth";
 
 export const PoolWithPool = ({ pool }: { pool: Pool }) => (
   <div>
@@ -17,8 +17,8 @@ export const PoolWithPool = ({ pool }: { pool: Pool }) => (
       <Card>
         <Orderbook pool={pool} />
       </Card>
-      <Card>
-        <Spread pool={pool} />
+      <Card className="max-w-[600px]">
+        <Depth pool={pool} />
       </Card>
     </div>
   </div>

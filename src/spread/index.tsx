@@ -10,8 +10,11 @@ export const Spread = ({ pool }: PropsPool) => {
 
   if (orderbook === null) {
     return (
-      <div className="w-8">
-        <Loading />
+      <div>
+        <h2>Spread</h2>
+        <div className="w-8">
+          <Loading />
+        </div>
       </div>
     );
   }
@@ -20,11 +23,19 @@ export const Spread = ({ pool }: PropsPool) => {
 
   if (spread === null) {
     return (
-      <div className="w-8">
-        <p>Missing data I guess...</p>
+      <div>
+        <h2>Spread</h2>
+        <div className="w-8">
+          <p>Missing data I guess...</p>
+        </div>
       </div>
     );
   }
 
-  return <SpreadView spread={spread} />;
+  return (
+    <div>
+      <h2>Spread</h2>
+      <SpreadView spread={spread} />
+    </div>
+  );
 };

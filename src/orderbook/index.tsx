@@ -9,13 +9,19 @@ export const Orderbook = ({ pool }: { pool: Pool }) => {
 
   if (orderbook === null) {
     return (
-      <div className="w-8">
-        <Loading />
+      <div>
+        <h3 className="pb-2">Orderbook</h3>
+        <div className="w-8">
+          <Loading />
+        </div>
       </div>
     );
   }
 
   return (
-    <OrderbookView orderbook={transformOrderbook(orderbook)} pool={pool} />
+    <div>
+      <h3 className="pb-2">Orderbook</h3>
+      <OrderbookView orderbook={transformOrderbook(orderbook)} pool={pool} />
+    </div>
   );
 };

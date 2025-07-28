@@ -35,4 +35,14 @@ export type Pool = {
   tick_size: number;
 };
 
-export type PropsPool = { pool: Pool };
+export interface PropsPool {
+  pool: Pool;
+}
+
+export interface PropsOrderbook {
+  orderbook: Orderbook;
+}
+
+export interface PropsOrderbookWithTotal {
+  orderbook: OrderbookWithTotal;
+}

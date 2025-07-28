@@ -37,3 +37,17 @@ export const getPriceDec = (pool: Pool): number => {
 
 export const roundPrice = (price: number, pool: Pool): string =>
   price.toFixed(getPriceDec(pool));
+
+export const roundSize = (size: number, pool: Pool): string => {
+  const dec = pool.base_asset_decimals - Math.log10(pool.lot_size);
+  if (dec > 0) {
+    return size.toFixed(dec);
+  }
+  return size.toFixed(0);
+};
+
+export const roundPriceNum = (price: number, pool: Pool): number =>
+  Number(price.toFixed(getPriceDec(pool)));
+
+export const getSuiExplorerLink = (objId: string, objType: "object" | "coin") =>
+  `https://suiscan.xyz/mainnet/${objType}/${objId}`;
