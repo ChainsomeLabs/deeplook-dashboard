@@ -1,15 +1,16 @@
+import Decimal from "decimal.js";
 import type { Order, Orderbook, OrderbookWithTotal } from "../common/types";
 
 const calculateRunningTotal = (
   orders: Order[]
 ): { order: Order; total: number }[] => {
   const result: { order: Order; total: number }[] = [];
-  let total = 0;
+  let total = new Decimal(0);
 
   for (let i = 0; i < orders.length; i++) {
     const order = orders[i];
-    total += Number(order.size);
-    result.push({ order, total });
+    total = total.plus(new Decimal(order.size));
+    result.push({ order, total: total.toNumber() });
   }
 
   return result;
