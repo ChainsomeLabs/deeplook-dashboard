@@ -6,19 +6,23 @@ import type { Pool } from "../common/types";
 import { PoolInfo } from "../poolInfo";
 import { Card } from "../common";
 import { Depth } from "../depth/Depth";
+import { LatestTrades } from "../latestTrades";
 
 export const PoolWithPool = ({ pool }: { pool: Pool }) => (
   <div>
     <h4>{pool.pool_name}</h4>
-    <div className="flex flex-wrap justify-around gap-4">
+    <div className="flex flex-wrap gap-4">
       <Card>
         <PoolInfo pool={pool} />
       </Card>
-      <Card>
+      <Card className="flex-grow">
         <Orderbook pool={pool} />
       </Card>
       <Card className="max-w-[600px]">
         <Depth pool={pool} />
+      </Card>
+      <Card className="w-fit">
+        <LatestTrades pool={pool} />
       </Card>
     </div>
   </div>

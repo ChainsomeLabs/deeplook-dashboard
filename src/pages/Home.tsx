@@ -1,7 +1,7 @@
-import { PoolsDropdown } from "../poolSelect";
+import { PoolList } from "../poolList";
 
 export const HomePage = () => (
   <div>
-    <PoolsDropdown />
+    <PoolList />
   </div>
 );

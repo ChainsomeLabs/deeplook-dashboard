@@ -1,3 +1,4 @@
+import Decimal from "decimal.js";
 import type { Pool } from "./types";
 
 export const hashEllision = (hash: string, length?: number) => {
@@ -49,5 +50,26 @@ export const roundSize = (size: number, pool: Pool): string => {
 export const roundPriceNum = (price: number, pool: Pool): number =>
   Number(price.toFixed(getPriceDec(pool)));
 
-export const getSuiExplorerLink = (objId: string, objType: "object" | "coin") =>
-  `https://suiscan.xyz/mainnet/${objType}/${objId}`;
+export const getSuiExplorerLink = (
+  objId: string,
+  objType: "object" | "coin" | "tx"
+) => `https://suiscan.xyz/mainnet/${objType}/${objId}`;
+
+export const shortInt = (num: bigint | string | number, dec: number): number =>
+  new Decimal(num).div(Decimal.pow(10, dec)).toNumber();
+
+export const formatUtcTimestamp = (timestamp: string | number): string => {
+  const date = new Date(timestamp);
+  return new Intl.DateTimeFormat("en-GB", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23",
+    timeZone: "UTC",
+  })
+    .format(date)
+    .replace(",", "");
+};

@@ -19,7 +19,7 @@ export type OrderbookWithTotal = {
   max: number;
 };
 
-export type Pool = {
+export interface Pool {
   pool_id: string;
   pool_name: string;
   base_asset_id: string;
@@ -33,7 +33,7 @@ export type Pool = {
   min_size: number;
   lot_size: number;
   tick_size: number;
-};
+}
 
 export interface PropsPool {
   pool: Pool;
@@ -46,3 +46,32 @@ export interface PropsOrderbook {
 export interface PropsOrderbookWithTotal {
   orderbook: OrderbookWithTotal;
 }
+
+export type OHLCV = {
+  high: number;
+  low: number;
+  close: number;
+  volume_base: string;
+  open: number;
+  timestamp: number;
+  volume_quote: string;
+};
+
+export interface FillsSummary {
+  pool_id: string;
+  price_open_24h: number;
+  price_close_24h: number;
+  trade_count_24h: string;
+  base_volume_24h: string;
+}
+
+export type PoolWithFillsSummary = Pool & FillsSummary;
+
+export type TradeInfo = {
+  digest: string;
+  checkpoint: number;
+  timestamp: string;
+  price: number;
+  base_quantity: number;
+  quote_quantity: number;
+};

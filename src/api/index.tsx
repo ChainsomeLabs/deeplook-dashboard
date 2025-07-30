@@ -1,4 +1,4 @@
-import type { Pool } from "../common/types";
+import type { FillsSummary, OHLCV, Pool } from "../common/types";
 
 const BASE_URL = "https://api.sui.carmine.finance";
 
@@ -31,4 +31,11 @@ async function apiFetch<T>(
 
 export const api = {
   getPools: async () => await apiFetch<Pool[]>("/get_pools"),
+  getOHLCV: async (poolName: string, startTime: number, endTime: number) =>
+    await apiFetch<OHLCV[]>(`/ohlcv/${poolName}`, {
+      start_time: startTime.toString(10),
+      end_time: endTime.toString(10),
+    }),
+  getFills24hSummary: async () =>
+    await apiFetch<FillsSummary[]>("/fills_24h_summary"),
 };

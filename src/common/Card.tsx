@@ -6,7 +6,7 @@ type Props = {
 };
 
 export const Card = ({ children, className }: Props) => {
-  const baseCls = "rounded-lg bg-surface-container p-4 flex-grow";
+  const baseCls = "rounded-lg bg-surface-container p-4";
   const cls = className ? baseCls + " " + className : baseCls;
   return <div className={cls}>{children}</div>;
 };
