@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Loading } from "../common";
+import { SmallLoading } from "../common";
 import type { PropsPool } from "../common/types";
 import { transformOrderbook } from "../orderbook/transform";
 import { useOrderbook } from "../orderbook/useOrderbook";
@@ -56,9 +56,7 @@ export const Depth = ({ pool }: PropsPool) => {
           options={spreadOptions}
           setSpread={setSpread}
         />
-        <div className="w-8">
-          <Loading />
-        </div>
+        <SmallLoading />
       </div>
     );
   }

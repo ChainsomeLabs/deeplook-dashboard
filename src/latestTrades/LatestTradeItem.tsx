@@ -12,12 +12,12 @@ type Props = {
 };
 
 export const LatestTradeItem = ({ trade, pool }: Props) => {
-  const { base_quantity, price, digest, timestamp } = trade;
+  const { base_quantity, price, digest, timestamp, taker_is_bid } = trade;
   const parsedPrice = roundPrice(
     shortInt(price, 9 - pool.base_asset_decimals + pool.quote_asset_decimals),
     pool
   );
-  const datetime = formatUtcTimestamp(timestamp);
+  const [, time] = formatUtcTimestamp(timestamp);
 
   return (
     <a
@@ -25,11 +25,13 @@ export const LatestTradeItem = ({ trade, pool }: Props) => {
       target="_blank"
       rel="noopener nofollow noreferrer"
     >
-      <div className="flex gap-4">
-        <div>{datetime}</div>
-        <div>
-          {pool.quote_asset_symbol} {parsedPrice}
-        </div>
+      <div
+        className={`grid grid-cols-3 gap-2 px-2 ${
+          taker_is_bid ? "text-ui-bid" : "text-ui-ask"
+        }`}
+      >
+        <div>{time}</div>
+        <div>{parsedPrice}</div>
         <div>{shortInt(base_quantity, pool.base_asset_decimals)}</div>
       </div>
     </a>

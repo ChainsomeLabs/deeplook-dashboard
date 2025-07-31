@@ -1,4 +1,4 @@
-import { Loading } from "../common/Loading";
+import { SmallLoading } from "../common/Loading";
 import { PoolsDropdownView } from "./PoolsDropdownView";
 import { usePools } from "./usePools";
 
@@ -6,11 +6,7 @@ export const PoolsDropdown = () => {
   const { data, isLoading, isError } = usePools();
 
   if (isLoading) {
-    return (
-      <div className="w-8">
-        <Loading />
-      </div>
-    );
+    return <SmallLoading />;
   }
 
   if (isError || !data) {

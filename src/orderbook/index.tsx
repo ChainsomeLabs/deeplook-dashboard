@@ -1,4 +1,4 @@
-import { Loading } from "../common/Loading";
+import { SmallLoading } from "../common";
 import type { Pool } from "../common/types";
 import { OrderbookView } from "./OrderbookView";
 import { transformOrderbook } from "./transform";
@@ -11,9 +11,7 @@ export const Orderbook = ({ pool }: { pool: Pool }) => {
     return (
       <div>
         <h3 className="pb-2">Orderbook</h3>
-        <div className="w-8">
-          <Loading />
-        </div>
+        <SmallLoading />
       </div>
     );
   }

@@ -19,3 +19,11 @@ export const Loading = () => (
     <span className="sr-only">Loading...</span>
   </div>
 );
+
+export const SmallLoading = () => (
+  <div className="h-8 flex justify-center items-center">
+    <div className="w-8">
+      <Loading />
+    </div>
+  </div>
+);

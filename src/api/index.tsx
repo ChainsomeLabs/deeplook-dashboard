@@ -1,4 +1,9 @@
-import type { FillsSummary, OHLCV, Pool } from "../common/types";
+import type {
+  AverageTradeSizes,
+  FillsSummary,
+  OHLCV,
+  Pool,
+} from "../common/types";
 
 const BASE_URL = "https://api.sui.carmine.finance";
 
@@ -38,4 +43,8 @@ export const api = {
     }),
   getFills24hSummary: async () =>
     await apiFetch<FillsSummary[]>("/fills_24h_summary"),
+  getAverageTrade: async (poolName: string) =>
+    await apiFetch<AverageTradeSizes>(
+      `/average_trade_multi_window/${poolName}`
+    ),
 };

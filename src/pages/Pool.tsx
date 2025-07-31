@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 import { Orderbook } from "../orderbook";
 import { usePools } from "../poolSelect/usePools";
-import { Loading } from "../common/Loading";
+import { SmallLoading } from "../common/Loading";
 import type { Pool } from "../common/types";
 import { PoolInfo } from "../poolInfo";
 import { Card } from "../common";
@@ -38,9 +38,7 @@ export const PoolPage = () => {
     return (
       <div>
         <h1>{poolName}</h1>
-        <div className="w-8">
-          <Loading />
-        </div>
+        <SmallLoading />
       </div>
     );
   }

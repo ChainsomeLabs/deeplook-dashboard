@@ -58,18 +58,21 @@ export const getSuiExplorerLink = (
 export const shortInt = (num: bigint | string | number, dec: number): number =>
   new Decimal(num).div(Decimal.pow(10, dec)).toNumber();
 
-export const formatUtcTimestamp = (timestamp: string | number): string => {
+export const formatUtcTimestamp = (
+  timestamp: string | number
+): [string, string] => {
   const date = new Date(timestamp);
-  return new Intl.DateTimeFormat("en-GB", {
-    year: "numeric",
+  const d = new Intl.DateTimeFormat("en-GB", {
     month: "2-digit",
     day: "2-digit",
+    hourCycle: "h23",
+  }).format(date);
+  const t = new Intl.DateTimeFormat("en-GB", {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
     hourCycle: "h23",
-    timeZone: "UTC",
-  })
-    .format(date)
-    .replace(",", "");
+  }).format(date);
+
+  return [d, t];
 };

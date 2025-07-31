@@ -17,7 +17,7 @@ export function useLatestTrades(pool: Pool): TradeInfo[] | null {
         const data = JSON.parse(event.data);
 
         if (data) {
-          setTrades(transform(data));
+          setTrades(transform(data, pool));
         }
       } catch (err) {
         console.error("Failed to parse WebSocket message:", err);

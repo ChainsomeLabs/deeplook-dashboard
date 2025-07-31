@@ -1,4 +1,4 @@
 import { Card } from "./Card";
-import { Loading } from "./Loading";
+import { Loading, SmallLoading } from "./Loading";
 
-export { Card, Loading };
+export { Card, Loading, SmallLoading };

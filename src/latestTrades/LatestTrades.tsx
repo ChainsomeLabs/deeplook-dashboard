@@ -1,4 +1,4 @@
-import { Loading } from "../common";
+import { SmallLoading } from "../common";
 import type { PropsPool } from "../common/types";
 import { LatestTradeItem } from "./LatestTradeItem";
 import { useLatestTrades } from "./useLatestTrades";
@@ -10,17 +10,20 @@ export const LatestTrades = ({ pool }: PropsPool) => {
     return (
       <div>
         <h3 className="pb-2">Latest Trades</h3>
-        <div className="w-8">
-          <Loading />
-        </div>
+        <SmallLoading />
       </div>
     );
   }
 
   return (
     <div>
-      <h3 className="pb-2">Orderbook</h3>
+      <h3 className="pb-2">Latest Trades</h3>
       <div className="w-fit">
+        <div className="grid grid-cols-3 gap-2 px-2">
+          <div>Time</div>
+          <div>Price ({pool.quote_asset_symbol})</div>
+          <div>Volume ({pool.base_asset_symbol})</div>
+        </div>
         {trades.map((t, i) => (
           <LatestTradeItem key={i} trade={t} pool={pool} />
         ))}

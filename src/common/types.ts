@@ -74,4 +74,12 @@ export type TradeInfo = {
   price: number;
   base_quantity: number;
   quote_quantity: number;
+  taker_is_bid: boolean;
+};
+
+export type AverageTradeSizes = {
+  "5min": string;
+  "15min": string;
+  "1h": string;
+  "24h": string;
 };

@@ -1,4 +1,4 @@
-import { Loading } from "../common";
+import { SmallLoading } from "../common";
 import { PoolListItem } from "./PoolListItem";
 import { usePoolsWithFillSummary } from "./usePoolsFillSummary";
 
@@ -6,11 +6,7 @@ export const PoolList = () => {
   const { data, isLoading, isError } = usePoolsWithFillSummary();
 
   if (isLoading) {
-    return (
-      <div className="w-8">
-        <Loading />
-      </div>
-    );
+    return <SmallLoading />;
   }
   if (isError || !data) {
     return <p>Something went wrong</p>;

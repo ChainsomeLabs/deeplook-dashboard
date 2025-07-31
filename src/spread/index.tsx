@@ -1,4 +1,4 @@
-import { Loading } from "../common";
+import { SmallLoading } from "../common";
 import type { PropsPool } from "../common/types";
 import { transformOrderbook } from "../orderbook/transform";
 import { useOrderbook } from "../orderbook/useOrderbook";
@@ -12,9 +12,7 @@ export const Spread = ({ pool }: PropsPool) => {
     return (
       <div>
         <h2>Spread</h2>
-        <div className="w-8">
-          <Loading />
-        </div>
+        <SmallLoading />
       </div>
     );
   }
@@ -25,7 +23,7 @@ export const Spread = ({ pool }: PropsPool) => {
     return (
       <div>
         <h2>Spread</h2>
-        <div className="w-8">
+        <div className="h-8">
           <p>Missing data I guess...</p>
         </div>
       </div>
