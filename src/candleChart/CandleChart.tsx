@@ -67,9 +67,12 @@ export const CandleChart = ({ pool, start, end }: Props) => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <div className="w-12 h-12 m-12">
-          <Loading />
+      <div>
+        <h3 className="pb-2">OHLC</h3>
+        <div className="flex items-center justify-center h-full">
+          <div className="w-12 h-12 m-12">
+            <Loading />
+          </div>
         </div>
       </div>
     );
@@ -77,12 +80,20 @@ export const CandleChart = ({ pool, start, end }: Props) => {
 
   if (isError || !data) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <div className="w-12 h-12 m-12">
-          <p>Something went wrong</p>
+      <div>
+        <h3 className="pb-2">OHLC</h3>
+        <div className="flex items-center justify-center h-full">
+          <div className="w-12 h-12 m-12">
+            <p>Something went wrong</p>
+          </div>
         </div>
       </div>
     );
   }
-  return <Chart pool={pool} data={data} />;
+  return (
+    <div className="h-full w-full max-h-100">
+      <h3 className="pb-2">OHLC</h3>
+      <Chart pool={pool} data={data} />
+    </div>
+  );
 };

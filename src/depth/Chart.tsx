@@ -52,6 +52,19 @@ export const DepthChart = ({ bids, asks }: Props) => {
               ? [`${value.toFixed(4)}`, "Price"]
               : [`${value}`, "Cumulative"]
           }
+          contentStyle={{
+            backgroundColor: "#1f1e31", // your dark background
+            borderColor: "#333",
+            borderRadius: "0.25rem",
+          }}
+          itemStyle={{
+            color: "#f1f1f1", // light text
+            fontSize: "0.875rem",
+          }}
+          labelStyle={{
+            color: "#a0a0a0",
+            fontWeight: 500,
+          }}
         />
         <Area
           type="stepAfter"
