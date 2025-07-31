@@ -3,12 +3,12 @@ export const Footer = () => (
     <p className="text-center">
       Deeplook by{" "}
       <a
-        href="https://github.com/ChainsomeLabs"
+        href="https://www.carmine.finance/for-builders"
         target="_blank"
         rel="noopener nofollow noreferrer"
         className="underline"
       >
-        ChainsomeLabs
+        Carmine Finance
       </a>
     </p>
   </footer>
