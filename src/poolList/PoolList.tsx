@@ -20,8 +20,8 @@ export const PoolList = () => {
         <div>24H price change</div>
         <div>24H volume</div>
       </div>
-      {data.map((p) => (
-        <PoolListItem poolWithFills={p} />
+      {data.map((p, i) => (
+        <PoolListItem key={i} poolWithFills={p} />
       ))}
     </div>
   );

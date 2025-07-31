@@ -96,3 +96,29 @@ export const formatPrice = (
 
   return roundPrice(short, pool);
 };
+
+export const formatSizeNum = (
+  num: bigint | string | number,
+  pool: Pool
+): number => {
+  const short = shortInt(num, pool.base_asset_decimals);
+  return Number(roundSize(short, pool));
+};
+
+export const formatPriceNum = (
+  num: bigint | string | number,
+  pool: Pool
+): number => {
+  const short = shortInt(
+    num,
+    9 - pool.base_asset_decimals + pool.quote_asset_decimals
+  );
+
+  return Number(roundPrice(short, pool));
+};
+
+export const getNowToMinute = (): number => {
+  const now = Math.floor(Date.now() / 1000);
+  const roundedToMinute = now - (now % 60);
+  return roundedToMinute;
+};

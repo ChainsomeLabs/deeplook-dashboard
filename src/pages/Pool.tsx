@@ -7,6 +7,8 @@ import { PoolInfo } from "../poolInfo";
 import { Card } from "../common";
 import { Depth } from "../depth/Depth";
 import { LatestTrades } from "../latestTrades";
+import { CandleChart } from "../candleChart";
+import { getNowToMinute } from "../common/utils";
 
 export const PoolWithPool = ({ pool }: { pool: Pool }) => (
   <div>
@@ -23,6 +25,13 @@ export const PoolWithPool = ({ pool }: { pool: Pool }) => (
       </Card>
       <Card className="w-fit">
         <LatestTrades pool={pool} />
+      </Card>
+      <Card className="w-[640px]">
+        <CandleChart
+          pool={pool}
+          start={getNowToMinute() - 24 * 60 * 60}
+          end={getNowToMinute()}
+        />
       </Card>
     </div>
   </div>
