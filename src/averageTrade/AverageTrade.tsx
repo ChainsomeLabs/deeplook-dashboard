@@ -1,5 +1,6 @@
 import { SmallLoading } from "../common";
 import type { PropsPool } from "../common/types";
+import { formatSize } from "../common/utils";
 import { useAverageTrade } from "./useAverageTrade";
 
 export const AverageTrade = ({ pool }: PropsPool) => {
@@ -16,12 +17,14 @@ export const AverageTrade = ({ pool }: PropsPool) => {
   return (
     <div>
       <h4 className="mt-4">Average trade volumes</h4>
+      <div className="flex items-center justify-between border-b-thin border-on-surface-variant">
+        <div>Period</div>
+        <div>Average size ({pool.base_asset_symbol})</div>
+      </div>
       {Object.entries(data).map(([key, value], i) => (
         <div key={i} className="flex items-center justify-between">
           <div>{key}</div>
-          <div>
-            {(Number(value) / 10 ** pool.base_asset_decimals).toFixed(0)}
-          </div>
+          <div>{formatSize(value, pool)}</div>
         </div>
       ))}
     </div>

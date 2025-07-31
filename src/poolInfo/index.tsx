@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { Pool } from "../common/types";
 import { getSuiExplorerLink, hashEllision } from "../common/utils";
+import { AverageTrade } from "../averageTrade";
 
 const Item = ({ left, right }: { left: ReactNode; right: ReactNode }) => (
   <div className="flex justify-between items-center gap-20">
@@ -68,6 +69,7 @@ export const PoolInfo = ({ pool }: { pool: Pool }) => (
       />
       <Item left="Tick size:" right={pool.tick_size.toString(10)} />
       <Item left="Lot size:" right={pool.lot_size.toString(10)} />
+      <AverageTrade pool={pool} />
     </div>
   </div>
 );

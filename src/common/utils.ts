@@ -76,3 +76,23 @@ export const formatUtcTimestamp = (
 
   return [d, t];
 };
+
+export const formatSize = (
+  num: bigint | string | number,
+  pool: Pool
+): string => {
+  const short = shortInt(num, pool.base_asset_decimals);
+  return roundSize(short, pool);
+};
+
+export const formatPrice = (
+  num: bigint | string | number,
+  pool: Pool
+): string => {
+  const short = shortInt(
+    num,
+    9 - pool.base_asset_decimals + pool.quote_asset_decimals
+  );
+
+  return roundPrice(short, pool);
+};

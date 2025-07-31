@@ -4,7 +4,7 @@
 set -e
 
 # Check if correct number of arguments is provided
-if [ "$#" -ne 2 ]; then
+if [ "$#" -ne 1 ]; then
   echo "Usage: $0 <version>"
   echo "Example: $0 1.0.2"
   exit 1
