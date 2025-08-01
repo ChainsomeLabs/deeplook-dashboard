@@ -91,9 +91,11 @@ export const CandleChart = ({ pool, start, end }: Props) => {
     );
   }
   return (
-    <div className="h-full w-full max-h-100">
+    <>
       <h3 className="pb-2">OHLC</h3>
-      <Chart pool={pool} data={data} />
-    </div>
+      <div className="aspect-video">
+        <Chart pool={pool} data={data} />
+      </div>
+    </>
   );
 };
