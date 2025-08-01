@@ -1,3 +1,5 @@
+import type { CandlestickData, Time } from "lightweight-charts";
+
 export type Order = {
   price: number;
   size: number;
@@ -88,4 +90,15 @@ export type VolumeMultiwindow = {
   "1d": string;
   "7d": string;
   "30d": string;
+};
+
+export type VolumeData = {
+  time: Time;
+  value: number;
+  color: string;
+};
+
+export type CandleGraphData = {
+  ohlc: CandlestickData<Time>[];
+  volume: VolumeData[];
 };

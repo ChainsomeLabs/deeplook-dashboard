@@ -5,7 +5,7 @@ import type {
   Pool,
 } from "../common/types";
 
-const BASE_URL = "https://api.sui.carmine.finance";
+const BASE_URL = "https://api.deeplook.carmine.finance";
 
 const buildUrl = (path: string, params?: Record<string, string>) => {
   const url = new URL(`${BASE_URL}${path}`);

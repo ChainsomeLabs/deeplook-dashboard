@@ -1,23 +1,23 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   CandlestickSeries,
   createChart,
-  type CandlestickData,
-  type Time,
+  HistogramSeries,
 } from "lightweight-charts";
 
-import type { Pool } from "../common/types";
+import type { CandleGraphData, Pool } from "../common/types";
 import { Loading } from "../common";
 import { useOHLCV } from "./useOHLCV";
 import { getPriceDec } from "../common/utils";
 
 type ChartProps = {
-  data: CandlestickData<Time>[];
+  data: CandleGraphData;
   pool: Pool;
   dec: number;
+  showVolume: boolean;
 };
 
-const Chart = ({ data, dec }: ChartProps) => {
+const Chart = ({ data, dec, showVolume }: ChartProps) => {
   const chartContainerRef = useRef(null);
 
   useEffect(() => {
@@ -51,14 +51,25 @@ const Chart = ({ data, dec }: ChartProps) => {
       },
     });
 
-    candleStickSeries.setData(data);
+    candleStickSeries.setData(data.ohlc);
+
+    const volumeSeries = chart.addSeries(HistogramSeries, {
+      priceFormat: {
+        type: "volume",
+      },
+      priceScaleId: "",
+    });
+
+    if (showVolume) {
+      volumeSeries.setData(data.volume);
+    }
 
     chart.timeScale().fitContent();
 
     return () => {
       chart.remove();
     };
-  }, [data, dec]);
+  }, [data, dec, showVolume]);
 
   return <div ref={chartContainerRef} className="h-full w-full" />;
 };
@@ -70,6 +81,7 @@ type Props = {
 };
 
 export const CandleChart = ({ pool, start, end }: Props) => {
+  const [showVolume, setShowVolume] = useState(true);
   const { data, isLoading, isError } = useOHLCV(pool, start, end);
 
   if (isLoading) {
@@ -103,8 +115,18 @@ export const CandleChart = ({ pool, start, end }: Props) => {
   return (
     <>
       <h3 className="pb-2">OHLC last 24h</h3>
+      <div className="flex gap-4">
+        Show volume:
+        <input
+          type="checkbox"
+          checked={showVolume}
+          onChange={() => setShowVolume(!showVolume)}
+          className="accent-black"
+        />
+      </div>
+
       <div className="aspect-video">
-        <Chart pool={pool} data={data} dec={dec} />
+        <Chart pool={pool} data={data} dec={dec} showVolume={showVolume} />
       </div>
     </>
   );
