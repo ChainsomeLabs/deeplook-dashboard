@@ -9,20 +9,22 @@ import {
 import type { Pool } from "../common/types";
 import { Loading } from "../common";
 import { useOHLCV } from "./useOHLCV";
+import { getPriceDec } from "../common/utils";
 
 type ChartProps = {
   data: CandlestickData<Time>[];
   pool: Pool;
+  dec: number;
 };
 
-const Chart = ({ data }: ChartProps) => {
+const Chart = ({ data, dec }: ChartProps) => {
   const chartContainerRef = useRef(null);
 
   useEffect(() => {
     if (!chartContainerRef.current) return;
 
     const chart = createChart(chartContainerRef.current, {
-      layout: { textColor: "#43444d", background: { color: "#100e1c" } },
+      layout: { textColor: "#cccccc", background: { color: "#100e1c" } },
       grid: {
         vertLines: { color: "#666" },
         horzLines: { color: "#666" },
@@ -42,6 +44,11 @@ const Chart = ({ data }: ChartProps) => {
       downColor: "#f6465d",
       wickVisible: true,
       borderVisible: false,
+      priceFormat: {
+        type: "price",
+        precision: dec,
+        minMove: 1 / 10 ** dec,
+      },
     });
 
     candleStickSeries.setData(data);
@@ -51,7 +58,7 @@ const Chart = ({ data }: ChartProps) => {
     return () => {
       chart.remove();
     };
-  }, [data]);
+  }, [data, dec]);
 
   return <div ref={chartContainerRef} className="h-full w-full" />;
 };
@@ -68,7 +75,7 @@ export const CandleChart = ({ pool, start, end }: Props) => {
   if (isLoading) {
     return (
       <div>
-        <h3 className="pb-2">OHLC</h3>
+        <h3 className="pb-2">OHLC last 24h</h3>
         <div className="flex items-center justify-center h-full">
           <div className="w-12 h-12 m-12">
             <Loading />
@@ -81,7 +88,7 @@ export const CandleChart = ({ pool, start, end }: Props) => {
   if (isError || !data) {
     return (
       <div>
-        <h3 className="pb-2">OHLC</h3>
+        <h3 className="pb-2">OHLC last 24h</h3>
         <div className="flex items-center justify-center h-full">
           <div className="w-12 h-12 m-12">
             <p>Something went wrong</p>
@@ -90,11 +97,14 @@ export const CandleChart = ({ pool, start, end }: Props) => {
       </div>
     );
   }
+
+  const dec = getPriceDec(pool);
+
   return (
     <>
-      <h3 className="pb-2">OHLC</h3>
+      <h3 className="pb-2">OHLC last 24h</h3>
       <div className="aspect-video">
-        <Chart pool={pool} data={data} />
+        <Chart pool={pool} data={data} dec={dec} />
       </div>
     </>
   );
