@@ -83,3 +83,9 @@ export type AverageTradeSizes = {
   "1h": string;
   "24h": string;
 };
+
+export type VolumeMultiwindow = {
+  "1d": string;
+  "7d": string;
+  "30d": string;
+};

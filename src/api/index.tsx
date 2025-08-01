@@ -47,4 +47,6 @@ export const api = {
     await apiFetch<AverageTradeSizes>(
       `/average_trade_multi_window/${poolName}`
     ),
+  getVolumeMultiwindow: async (poolName: string) =>
+    await apiFetch<AverageTradeSizes>(`/volume_multi_window/${poolName}`),
 };

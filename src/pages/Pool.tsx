@@ -9,22 +9,28 @@ import { Depth } from "../depth/Depth";
 import { LatestTrades } from "../latestTrades";
 import { CandleChart } from "../candleChart";
 import { getNowToMinute } from "../common/utils";
+import { AverageTrade } from "../averageTrade";
+import { VolumeMultiwindow } from "../volumeMultiwindow";
 
 export const PoolWithPool = ({ pool }: { pool: Pool }) => (
   <div>
     <h4>{pool.pool_name}</h4>
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-wrap justify-evenly gap-4">
       <Card>
         <PoolInfo pool={pool} />
       </Card>
       <Card className="flex-grow">
         <Orderbook pool={pool} />
       </Card>
-      <Card className="max-w-[600px]">
-        <Depth pool={pool} />
-      </Card>
       <Card className="w-fit">
         <LatestTrades pool={pool} />
+      </Card>
+      <Card>
+        <VolumeMultiwindow pool={pool} />
+        <AverageTrade pool={pool} />
+      </Card>
+      <Card className="max-w-[600px]">
+        <Depth pool={pool} />
       </Card>
       <Card className="w-[640px]">
         <CandleChart
