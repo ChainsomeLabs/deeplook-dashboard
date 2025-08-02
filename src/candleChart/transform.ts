@@ -24,5 +24,10 @@ export const transform = (ohlcv: OHLCV[], pool: Pool): CandleGraphData => {
     { ohlc: [], volume: [] } as CandleGraphData
   );
 
-  return res;
+  const ordered = {
+    ohlc: res.ohlc.sort((a, b) => Number(a.time) - Number(b.time)),
+    volume: res.volume.sort((a, b) => Number(a.time) - Number(b.time)),
+  };
+
+  return ordered;
 };
