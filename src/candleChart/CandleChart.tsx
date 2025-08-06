@@ -24,10 +24,13 @@ const Chart = ({ data, dec, showVolume }: ChartProps) => {
     if (!chartContainerRef.current) return;
 
     const chart = createChart(chartContainerRef.current, {
-      layout: { textColor: "#cccccc", background: { color: "#100e1c" } },
+      layout: { 
+        textColor: "#cccccc", 
+        background: { color: "#1d2024" },
+      },
       grid: {
-        vertLines: { color: "#666" },
-        horzLines: { color: "#666" },
+        vertLines: { color: "#37393e" },
+        horzLines: { color: "#37393e" },
       },
       timeScale: {
         timeVisible: true,
@@ -51,6 +54,14 @@ const Chart = ({ data, dec, showVolume }: ChartProps) => {
       },
     });
 
+    candleStickSeries.priceScale().applyOptions({
+        scaleMargins: {
+            top: 0.1, // highest point of the series will be 10% away from the top
+            bottom: 0.3, // lowest point will be 40% away from the bottom
+        },
+    });
+
+
     candleStickSeries.setData(data.ohlc);
 
     const volumeSeries = chart.addSeries(HistogramSeries, {
@@ -61,6 +72,12 @@ const Chart = ({ data, dec, showVolume }: ChartProps) => {
     });
 
     if (showVolume) {
+      volumeSeries.priceScale().applyOptions({
+        scaleMargins: {
+          top: 0.7,
+          bottom: 0
+        },
+      });
       volumeSeries.setData(data.volume);
     }
 
@@ -71,7 +88,7 @@ const Chart = ({ data, dec, showVolume }: ChartProps) => {
     };
   }, [data, dec, showVolume]);
 
-  return <div ref={chartContainerRef} className="h-full w-full" />;
+  return <div ref={chartContainerRef} className="h-full w-full rounded-lg overflow-hidden border-2 border-surface-bright" />;
 };
 
 type Props = {

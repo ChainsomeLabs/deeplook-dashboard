@@ -24,7 +24,7 @@ export const DepthView = ({ data }: { data: DepthData }) => {
       </div>
       <div>
         {enoughData ? (
-          <div className="w-full h-72 bg-gray-900 rounded-lg p-4">
+          <div className="w-full h-72 rounded-lg p-4 border-2 border-surface-bright">
             <DepthChart asks={asks} bids={bids} />
           </div>
         ) : (
