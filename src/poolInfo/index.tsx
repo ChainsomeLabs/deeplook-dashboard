@@ -12,8 +12,7 @@ const Item = ({ left, right }: { left: ReactNode; right: ReactNode }) => (
 export const PoolInfo = ({ pool }: { pool: Pool }) => (
   <div>
     <h3 className="pb-2">Pool Info</h3>
-
-    <div className="flex flex-col gap-1 md:min-w-100">
+    <div className="flex flex-col gap-1 md:min-w-64">
       <Item
         left="Pool id:"
         right={
