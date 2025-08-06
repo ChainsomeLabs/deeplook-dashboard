@@ -13,35 +13,57 @@ import { AverageTrade } from "../averageTrade";
 import { VolumeMultiwindow } from "../volumeMultiwindow";
 
 export const PoolWithPool = ({ pool }: { pool: Pool }) => (
-  <div>
-    <h4>{pool.pool_name}</h4>
-    <div className="flex flex-wrap justify-evenly gap-4">
-      <Card>
-        <PoolInfo pool={pool} />
-      </Card>
-      <Card className="flex-grow">
-        <Orderbook pool={pool} />
-      </Card>
-      <Card className="w-fit">
-        <LatestTrades pool={pool} />
-      </Card>
-      <Card>
-        <VolumeMultiwindow pool={pool} />
-        <AverageTrade pool={pool} />
-      </Card>
-      <Card className="max-w-[600px]">
-        <Depth pool={pool} />
-      </Card>
-      <Card className="w-[640px]">
+  <>
+    <div className="flex flex-col md:flex-row gap-4 items-stretch mb-4">
+      {/* Chart - wide */}
+      <Card className="basis-4/7 min-w-0 flex flex-col">
         <CandleChart
           pool={pool}
           start={getNowToMinute() - 24 * 60 * 60}
           end={getNowToMinute()}
         />
       </Card>
+
+      {/* Orderbook - medium */}
+      <Card className="basis-2/7 min-w-0 flex flex-col">
+        <Orderbook pool={pool} />
+      </Card>
+
+      {/* Latest Trades - narrow */}
+      <Card className="basis-1/7 min-w-[200px] flex flex-col">
+        <LatestTrades pool={pool} />
+      </Card>
     </div>
-  </div>
+
+    {/* Second row */}
+
+    <div className="flex flex-col md:flex-row gap-4 items-stretch mb-4">
+
+      {/* Pool Info - narrow */}
+      <Card className="flex-[0.8] flex flex-col">
+        <PoolInfo pool={pool} />
+      </Card>
+
+      {/* Volume + Average Trade - medium */}
+      <Card className="flex-1 min-w-0 flex flex-col justify-between">
+        <div className="flex flex-col h-full justify-between gap-4">
+          <VolumeMultiwindow pool={pool} />
+          <AverageTrade pool={pool} />
+        </div>
+      </Card>
+
+
+      {/* Depth - wide */}
+      <Card className="flex-[2] min-w-0 flex flex-col">
+        <Depth pool={pool} />
+      </Card>
+      
+    </div>
+
+
+  </>
 );
+
 
 export const PoolPage = () => {
   const { poolName } = useParams<{ poolName: string }>();

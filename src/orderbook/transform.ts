@@ -27,7 +27,7 @@ export const transformOrderbook = (
   ob: Orderbook,
   options: OrderbookTransformOptions = {}
 ): OrderbookWithTotal => {
-  const { levels = 10 } = options;
+  const { levels = 12 } = options;
   const asks = calculateRunningTotal(
     ob.asks.sort((a, b) => Number(a.price) - Number(b.price)).slice(0, levels)
   ).sort((a, b) => b.order.price - a.order.price);
