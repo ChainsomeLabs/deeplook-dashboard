@@ -67,7 +67,11 @@ export interface FillsSummary {
   base_volume_24h: string;
 }
 
-export type PoolWithFillsSummary = Pool & FillsSummary;
+export interface FillsSummaryWithPrice extends FillsSummary {
+  base_price: number;
+}
+
+export type PoolWithFillsSummary = Pool & FillsSummaryWithPrice;
 
 export type TradeInfo = {
   digest: string;

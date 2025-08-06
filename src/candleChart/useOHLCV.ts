@@ -7,6 +7,6 @@ export const useOHLCV = (pool: Pool, start: number, end: number) => {
   return useQuery({
     queryKey: ["ohlcv", pool.pool_name, start, end],
     queryFn: async () =>
-      api.getOHLCV(pool.pool_name, start, end).then((v) => transform(v, pool)),
+      api.getOHLCV(pool.pool_name, start, end).then((v) => transform(v)),
   });
 };
