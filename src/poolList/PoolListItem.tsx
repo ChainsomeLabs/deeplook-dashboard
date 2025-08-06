@@ -13,11 +13,17 @@ export const PoolListItem = ({ poolWithFills }: Props) => {
     price_open_24h,
     price_close_24h,
     base_volume_24h,
-    base_asset_symbol,
     base_asset_decimals,
+    base_price,
   } = poolWithFills;
   const percentChange =
     ((price_close_24h - price_open_24h) / price_open_24h) * 100;
+
+  const volumeUsd = new Decimal(base_volume_24h)
+    .div(Decimal.pow(10, base_asset_decimals))
+    .mul(new Decimal(base_price))
+    .toNumber();
+
   return (
     <Link to={`/pool/${pool_name}`}>
       <div className="grid grid-cols-4 bg-surface-container rounded-xl px-4 py-2">
@@ -27,10 +33,7 @@ export const PoolListItem = ({ poolWithFills }: Props) => {
           {percentChange.toFixed(2)}%
         </div>
         <div>
-          {new Decimal(base_volume_24h)
-            .div(Decimal.pow(10, base_asset_decimals))
-            .toString()}{" "}
-          {base_asset_symbol}
+          ${volumeUsd > 100 ? volumeUsd.toFixed(0) : volumeUsd.toFixed(2)}
         </div>
       </div>
     </Link>
