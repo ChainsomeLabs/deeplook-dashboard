@@ -122,3 +122,10 @@ export const getNowToMinute = (): number => {
   const roundedToMinute = now - (now % 60);
   return roundedToMinute;
 };
+
+export const formatLargeNumber = (value: number, decimals = 2): string => {
+  const parts = value.toFixed(decimals).split(".");
+  const intPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  const decimalPart = parts[1];
+  return decimalPart ? `${intPart}.${decimalPart}` : intPart;
+};

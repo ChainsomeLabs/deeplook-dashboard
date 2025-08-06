@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import type { PoolWithFillsSummary } from "../common/types";
 import Decimal from "decimal.js";
+import { formatLargeNumber } from "../common/utils";
 
 type Props = {
   poolWithFills: PoolWithFillsSummary;
@@ -33,7 +34,7 @@ export const PoolListItem = ({ poolWithFills }: Props) => {
           {percentChange.toFixed(2)}%
         </div>
         <div>
-          ${volumeUsd > 100 ? volumeUsd.toFixed(0) : volumeUsd.toFixed(2)}
+          {volumeUsd < 1 ? "< $1" : `$${formatLargeNumber(volumeUsd, 0)}`}
         </div>
       </div>
     </Link>
