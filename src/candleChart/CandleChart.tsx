@@ -125,7 +125,7 @@ export const CandleChart = ({ pool, start, end }: Props) => {
         />
       </div>
 
-      <div className="aspect-video">
+      <div className="h-full w-full">
         <Chart pool={pool} data={data} dec={dec} showVolume={showVolume} />
       </div>
     </>
