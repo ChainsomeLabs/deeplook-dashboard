@@ -27,7 +27,7 @@ export const PoolListItem = ({ poolWithFills }: Props) => {
 
   return (
     <Link to={`/pool/${pool_name}`}>
-      <div className="grid grid-cols-4 bg-surface-container rounded-xl px-4 py-2">
+      <div className="grid grid-cols-4 bg-surface-container rounded-xl px-4 py-2 border-1 border-transparent hover:bg-surface-container-highest hover:border-white transition-colors duration-150">
         <div>{pool_name}</div>
         <div>{trade_count_24h}</div>
         <div className={percentChange < 0 ? "text-ui-red" : "text-ui-green"}>
