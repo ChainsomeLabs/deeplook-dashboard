@@ -1,23 +1,34 @@
 import type { OrderbookWithTotal, Pool } from "../common/types";
+import { usePrices } from "../common/usePrice";
 import { OrderbookItemView } from "./OrderbookItemView";
 
 type Props = { orderbook: OrderbookWithTotal; pool: Pool };
 
 export const OrderbookView = ({ orderbook, pool }: Props) => {
+  const { data: prices } = usePrices();
   const { asks, bids, max } = orderbook;
   const { base_asset_symbol, quote_asset_symbol } = pool;
+
+  const quotePrice =
+    quote_asset_symbol === "USDC"
+      ? 1
+      : prices === undefined
+      ? undefined
+      : prices[quote_asset_symbol];
+
   return (
     <div>
       <div className="relative flex pb-2">
-        <h5 className="flex-[0.5] text-start relative">
-          Price{"\u00A0"}({quote_asset_symbol})
+        <h5 className="flex-[0.5] text-start relative text-xs sm:text-lg">
+          Price ({quote_asset_symbol})
         </h5>
-        <h5 className="flex-1 text-end">
-          Quantity{"\u00A0"}({base_asset_symbol})
+        <h5 className="flex-1 text-end text-xs sm:text-lg">
+          Quantity ({base_asset_symbol})
         </h5>
-        <h5 className="flex-1 text-end tabular-nums">
-          Total{"\u00A0"}({base_asset_symbol})
+        <h5 className="flex-1 text-end text-xs sm:text-lg">
+          Total ({base_asset_symbol})
         </h5>
+        <h5 className="flex-1 text-end text-xs sm:text-lg">Total (USD)</h5>
       </div>
       {asks.map((ask, i) => (
         <OrderbookItemView
@@ -26,6 +37,7 @@ export const OrderbookView = ({ orderbook, pool }: Props) => {
           max={max}
           type="ask"
           pool={pool}
+          quotePrice={quotePrice}
         />
       ))}
       {bids.map((bid, i) => (
@@ -35,6 +47,7 @@ export const OrderbookView = ({ orderbook, pool }: Props) => {
           max={max}
           type="bid"
           pool={pool}
+          quotePrice={quotePrice}
         />
       ))}
     </div>

@@ -19,7 +19,9 @@ export const Orderbook = ({ pool }: { pool: Pool }) => {
   return (
     <div>
       <h3 className="pb-2">Orderbook</h3>
-      <OrderbookView orderbook={transformOrderbook(orderbook)} pool={pool} />
+      <div className="text-xs sm:text-base">
+        <OrderbookView orderbook={transformOrderbook(orderbook)} pool={pool} />
+      </div>
     </div>
   );
 };

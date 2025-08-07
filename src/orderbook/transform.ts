@@ -1,16 +1,27 @@
 import Decimal from "decimal.js";
-import type { Order, Orderbook, OrderbookWithTotal } from "../common/types";
+import type {
+  Order,
+  Orderbook,
+  OrderbookWithTotal,
+  OrderWithTotal,
+} from "../common/types";
 
-const calculateRunningTotal = (
-  orders: Order[]
-): { order: Order; total: number }[] => {
-  const result: { order: Order; total: number }[] = [];
+const calculateRunningTotal = (orders: Order[]): OrderWithTotal[] => {
+  const result: { order: Order; total: number; quoteTotal: number }[] = [];
   let total = new Decimal(0);
+  let quoteTotal = new Decimal(0);
 
   for (let i = 0; i < orders.length; i++) {
     const order = orders[i];
     total = total.plus(new Decimal(order.size));
-    result.push({ order, total: total.toNumber() });
+    quoteTotal = quoteTotal.plus(
+      new Decimal(order.size).mul(new Decimal(order.price))
+    );
+    result.push({
+      order,
+      total: total.toNumber(),
+      quoteTotal: quoteTotal.toNumber(),
+    });
   }
 
   return result;

@@ -13,6 +13,7 @@ export type Orderbook = {
 export type OrderWithTotal = {
   order: Order;
   total: number;
+  quoteTotal: number;
 };
 
 export type OrderbookWithTotal = {

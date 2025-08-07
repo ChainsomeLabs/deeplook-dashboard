@@ -6,10 +6,22 @@ type Props = {
   max: number;
   type: "ask" | "bid";
   pool: Pool;
+  quotePrice?: number;
 };
 
-export const OrderbookItemView = ({ data, type, max, pool }: Props) => {
+export const OrderbookItemView = ({
+  data,
+  type,
+  max,
+  pool,
+  quotePrice,
+}: Props) => {
   const { order, total } = data;
+
+  const totalUsd =
+    quotePrice === undefined
+      ? "--"
+      : formatLargeNumber(data.quoteTotal * quotePrice, 2);
 
   return (
     <div className="relative flex">
@@ -25,6 +37,9 @@ export const OrderbookItemView = ({ data, type, max, pool }: Props) => {
       </p>
       <p className="text-ui-offwhite flex-1 text-end tabular-nums">
         {formatLargeNumber(total, getSizeDec(pool))}
+      </p>
+      <p className="text-ui-offwhite flex-1 text-end tabular-nums">
+        ${totalUsd}
       </p>
       <div
         className={`${
