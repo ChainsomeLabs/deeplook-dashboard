@@ -87,7 +87,7 @@ export const Depth = ({ pool }: PropsPool) => {
     <div>
       <Header spread={spread} />
       <Buttons spread={spread} options={spreadOptions} setSpread={setSpread} />
-      <DepthView data={depthData} />
+      <DepthView data={depthData} pool={pool} />
     </div>
   );
 };

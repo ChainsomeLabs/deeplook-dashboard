@@ -6,14 +6,16 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import type { OrderWithTotal } from "../common/types";
+import type { OrderWithTotal, Pool } from "../common/types";
+import { formatLargeNumber, getPriceDec, getSizeDec } from "../common/utils";
 
 type Props = {
   bids: OrderWithTotal[];
   asks: OrderWithTotal[];
+  pool: Pool;
 };
 
-export const DepthChart = ({ bids, asks }: Props) => {
+export const DepthChart = ({ bids, asks, pool }: Props) => {
   const data = [
     ...bids.map((d) => ({
       price: d.order.price,
@@ -27,8 +29,14 @@ export const DepthChart = ({ bids, asks }: Props) => {
     })),
   ];
 
+  const priceDec = getPriceDec(pool);
+  const sizeDec = getSizeDec(pool);
+
   // Sort ascending by price for smooth X-axis
   data.sort((a, b) => a.price - b.price);
+
+  const formatPrice = (v: number) => formatLargeNumber(v, priceDec);
+  const formatSize = (v: number) => formatLargeNumber(v, sizeDec);
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -39,19 +47,20 @@ export const DepthChart = ({ bids, asks }: Props) => {
           domain={["dataMin", "dataMax"]}
           stroke="#aaa"
           tick={{ fontSize: 12 }}
+          tickFormatter={formatPrice}
         />
         <YAxis
           dataKey="cumulative"
           stroke="#aaa"
           tick={{ fontSize: 12 }}
           width={60}
+          tickFormatter={formatSize}
         />
         <Tooltip
-          formatter={(value: number, name: string) =>
-            name === "price"
-              ? [`${value.toFixed(4)}`, "Price"]
-              : [`${value}`, "Cumulative"]
-          }
+          formatter={(value: number) => [
+            `${formatLargeNumber(value, sizeDec)}`,
+            "Cumulative",
+          ]}
           contentStyle={{
             backgroundColor: "#1f1e31", // your dark background
             borderColor: "#333",

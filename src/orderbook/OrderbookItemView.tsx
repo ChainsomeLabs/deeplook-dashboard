@@ -1,8 +1,14 @@
-import type { OrderWithTotal } from "../common/types";
+import type { OrderWithTotal, Pool } from "../common/types";
+import { formatLargeNumber, getPriceDec, getSizeDec } from "../common/utils";
 
-type Props = { data: OrderWithTotal; max: number; type: "ask" | "bid" };
+type Props = {
+  data: OrderWithTotal;
+  max: number;
+  type: "ask" | "bid";
+  pool: Pool;
+};
 
-export const OrderbookItemView = ({ data, type, max }: Props) => {
+export const OrderbookItemView = ({ data, type, max, pool }: Props) => {
   const { order, total } = data;
 
   return (
@@ -12,12 +18,14 @@ export const OrderbookItemView = ({ data, type, max }: Props) => {
           type === "ask" ? "text-ui-ask" : "text-ui-bid"
         } flex-[0.5] text-start relative tabular-nums`}
       >
-        {order.price}
+        {formatLargeNumber(order.price, getPriceDec(pool))}
       </p>
       <p className="text-ui-offwhite flex-1 text-end tabular-nums">
-        {order.size}
+        {formatLargeNumber(order.size, getSizeDec(pool))}
       </p>
-      <p className="text-ui-offwhite flex-1 text-end tabular-nums">{total}</p>
+      <p className="text-ui-offwhite flex-1 text-end tabular-nums">
+        {formatLargeNumber(total, getSizeDec(pool))}
+      </p>
       <div
         className={`${
           type === "ask" ? "bg-ui-ask" : "bg-ui-bid"

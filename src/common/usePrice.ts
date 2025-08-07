@@ -31,8 +31,6 @@ export async function fetchTokenPricesUSD(
   if (!res.ok) throw new Error("Failed to fetch token prices");
   const data = await res.json(); // { sui: { usd: 0.5 }, ... }
 
-  console.log("GECKO DATA", { symbols, validSymbols, ids, data });
-
   const result: Record<string, number> = {};
   for (const symbol of validSymbols) {
     const id = SYMBOL_TO_COINGECKO_ID[symbol];

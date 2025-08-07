@@ -37,7 +37,7 @@ export const PoolList = () => {
   const { data, isLoading, isError } = usePoolsWithFillSummary();
   const [sortKey, setSortKey] = useState<
     "market" | "trade_count" | "price_change" | "volume"
-  >("market");
+  >("volume");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
 
   if (isLoading) {

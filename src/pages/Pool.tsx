@@ -37,12 +37,12 @@ export const PoolWithPool = ({ pool }: { pool: Pool }) => (
       </Card>
 
       {/* Pool Info - narrow */}
-      <Card className="order-5 xl:order-5 col-span-12 xl:col-span-3 flex-[0.8]">
+      <Card className="order-5 xl:order-4 col-span-12 xl:col-span-3 flex-[0.8]">
         <PoolInfo pool={pool} />
       </Card>
 
       {/* Volume + Average Trade - medium */}
-      <Card className="order-6 xl:order-4 col-span-12 xl:col-span-3 min-w-0">
+      <Card className="order-6 xl:order-5 col-span-12 xl:col-span-3 min-w-0">
         <div className="flex flex-col h-full justify-between gap-4">
           <VolumeMultiwindow pool={pool} />
           <AverageTrade pool={pool} />
@@ -66,11 +66,16 @@ export const PoolPage = () => {
   if (!thisPool) {
     return (
       <div>
-        <h1>{poolName}</h1>
+        <h2>{poolName}</h2>
         <SmallLoading />
       </div>
     );
   }
 
-  return <PoolWithPool pool={thisPool} />;
+  return (
+    <div>
+      <h2>{poolName}</h2>
+      <PoolWithPool pool={thisPool} />
+    </div>
+  );
 };

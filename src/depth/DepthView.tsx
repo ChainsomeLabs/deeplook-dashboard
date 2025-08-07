@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { DepthData } from "./calc";
 import { DepthChart } from "./Chart";
+import type { Pool } from "../common/types";
 
 const Item = ({ left, right }: { left: ReactNode; right: ReactNode }) => (
   <div className="flex justify-between items-center gap-20">
@@ -9,7 +10,7 @@ const Item = ({ left, right }: { left: ReactNode; right: ReactNode }) => (
   </div>
 );
 
-export const DepthView = ({ data }: { data: DepthData }) => {
+export const DepthView = ({ data, pool }: { data: DepthData; pool: Pool }) => {
   const { mid, askLimit, bidLimit, asks, bids, spread } = data;
   const enoughData = asks.length + bids.length > 0;
 
@@ -25,7 +26,7 @@ export const DepthView = ({ data }: { data: DepthData }) => {
       <div>
         {enoughData ? (
           <div className="w-full h-72 rounded-lg p-4 border-2 border-surface-bright">
-            <DepthChart asks={asks} bids={bids} />
+            <DepthChart asks={asks} bids={bids} pool={pool} />
           </div>
         ) : (
           <p className="text-center py-5">No orders withing range</p>

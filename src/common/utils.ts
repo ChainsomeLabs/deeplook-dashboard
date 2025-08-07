@@ -26,6 +26,16 @@ const poolNameTicksizeMap: { [key: string]: number } = {
   DRF_SUI: 6,
 };
 
+const poolNameSizeDecMap: { [key: string]: number } = {
+  DEEP_SUI: 0,
+  DEEP_USDC: 0,
+  SUI_USDC: 0,
+  WAL_USDC: 0,
+  BWETH_USDC: 3,
+  XBTC_USDC: 3,
+  DRF_SUI: 0,
+};
+
 /// This function returns tick size, currently this is hardcoded
 /// as tick_size from pool does not reflect the precission we want
 export const getPriceDec = (pool: Pool): number => {
@@ -34,6 +44,14 @@ export const getPriceDec = (pool: Pool): number => {
     return fromMap;
   }
   return 5; // magical constant for pools not listed in the map
+};
+
+export const getSizeDec = (pool: Pool): number => {
+  const fromMap = poolNameSizeDecMap[pool.pool_name];
+  if (fromMap !== undefined) {
+    return fromMap;
+  }
+  return 1;
 };
 
 export const roundPrice = (price: number, pool: Pool): string =>
@@ -82,7 +100,7 @@ export const formatSize = (
   pool: Pool
 ): string => {
   const short = shortInt(num, pool.base_asset_decimals);
-  return roundSize(short, pool);
+  return formatLargeNumber(short, getSizeDec(pool));
 };
 
 export const formatPrice = (
@@ -125,7 +143,7 @@ export const getNowToMinute = (): number => {
 
 export const formatLargeNumber = (value: number, decimals = 2): string => {
   const parts = value.toFixed(decimals).split(".");
-  const intPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  const intPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   const decimalPart = parts[1];
   return decimalPart ? `${intPart}.${decimalPart}` : intPart;
 };

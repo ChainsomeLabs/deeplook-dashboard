@@ -20,10 +20,22 @@ export const OrderbookView = ({ orderbook, pool }: Props) => {
         </h5>
       </div>
       {asks.map((ask, i) => (
-        <OrderbookItemView key={i} data={ask} max={max} type="ask" />
+        <OrderbookItemView
+          key={i}
+          data={ask}
+          max={max}
+          type="ask"
+          pool={pool}
+        />
       ))}
       {bids.map((bid, i) => (
-        <OrderbookItemView key={i} data={bid} max={max} type="bid" />
+        <OrderbookItemView
+          key={i}
+          data={bid}
+          max={max}
+          type="bid"
+          pool={pool}
+        />
       ))}
     </div>
   );

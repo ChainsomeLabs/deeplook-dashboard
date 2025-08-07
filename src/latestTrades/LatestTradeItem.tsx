@@ -1,8 +1,11 @@
 import type { Pool, TradeInfo } from "../common/types";
 import {
+  formatLargeNumber,
   formatUtcTimestamp,
+  getPriceDec,
+  getSizeDec,
   getSuiExplorerLink,
-  roundPrice,
+  roundPriceNum,
   shortInt,
 } from "../common/utils";
 
@@ -13,10 +16,13 @@ type Props = {
 
 export const LatestTradeItem = ({ trade, pool }: Props) => {
   const { base_quantity, price, digest, timestamp, taker_is_bid } = trade;
-  const parsedPrice = roundPrice(
+  const parsedPrice = roundPriceNum(
     shortInt(price, 9 - pool.base_asset_decimals + pool.quote_asset_decimals),
     pool
   );
+  const parsedBaseVolume = shortInt(base_quantity, pool.base_asset_decimals);
+  const priceDec = getPriceDec(pool);
+  const sizeDec = getSizeDec(pool);
   const [, time] = formatUtcTimestamp(timestamp);
 
   return (
@@ -31,8 +37,8 @@ export const LatestTradeItem = ({ trade, pool }: Props) => {
         }`}
       >
         <div>{time}</div>
-        <div>{parsedPrice}</div>
-        <div>{shortInt(base_quantity, pool.base_asset_decimals)}</div>
+        <div>{formatLargeNumber(parsedPrice, priceDec)}</div>
+        <div>{formatLargeNumber(parsedBaseVolume, sizeDec)}</div>
       </div>
     </a>
   );
