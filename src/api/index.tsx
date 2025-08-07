@@ -6,7 +6,7 @@ import type {
   VolumeMultiwindow,
 } from "../common/types";
 
-const BASE_URL = "https://api.deeplook.carmine.finance";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const buildUrl = (path: string, params?: Record<string, string>) => {
   const url = new URL(`${BASE_URL}${path}`);

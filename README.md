@@ -13,7 +13,15 @@ This is the **frontend** for the Deeplook — a real-time interface for visualiz
 
 ## 🚀 Getting Started
 
-### 1. Install dependencies
+### 1. Run API
+
+Run your own Deeplook backend, which exposes endpoints used by the dashboard. Add the API URL into `.env` file:
+
+```bash
+VITE_API_URL=https://your.deeplook.api.url
+```
+
+### 2. Install dependencies
 
 We are using `pnpm` as a dependency manager, but feel free to use `npm`, `yarn` or any other.
 
@@ -21,13 +29,15 @@ We are using `pnpm` as a dependency manager, but feel free to use `npm`, `yarn` 
 pnpm install
 ```
 
-### 2. Run in development mode
+### 3. Run in development mode
 
 ```bash
 pnpm run dev
 ```
 
-### 3. Build for production
+### 4. Build for production
+
+API URL is hardcoded into the production build at build time, make sure you use correct URL when building!
 
 ```bash
 pnpm run build
