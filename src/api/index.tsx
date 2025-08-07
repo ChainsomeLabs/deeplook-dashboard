@@ -3,6 +3,7 @@ import type {
   FillsSummary,
   OHLCV,
   Pool,
+  VolumeMultiwindow,
 } from "../common/types";
 
 const BASE_URL = "https://api.deeplook.carmine.finance";
@@ -48,5 +49,5 @@ export const api = {
       `/average_trade_multi_window/${poolName}`
     ),
   getVolumeMultiwindow: async (poolName: string) =>
-    await apiFetch<AverageTradeSizes>(`/volume_multi_window/${poolName}`),
+    await apiFetch<VolumeMultiwindow>(`/volume_multi_window/${poolName}`),
 };

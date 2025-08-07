@@ -1,5 +1,5 @@
 import { SmallLoading } from "../common";
-import type { PropsPool } from "../common/types";
+import type { AverageTradeSizes, PropsPool } from "../common/types";
 import { usePrices } from "../common/usePrice";
 import { formatLargeNumber, formatSizeNum, getSizeDec } from "../common/utils";
 import { useAverageTrade } from "./useAverageTrade";
@@ -49,7 +49,8 @@ export const AverageTrade = ({ pool }: PropsPool) => {
         <div>Average size ({pool.base_asset_symbol})</div>
         <div>Average size (USD)</div>
       </div>
-      {Object.entries(data).map(([period, size], i) => {
+      {["5min", "15min", "1h", "24h"].map((period, i) => {
+        const size = data[period as keyof AverageTradeSizes];
         const volumeReadable = formatSizeNum(size, pool);
         const volume = formatLargeNumber(volumeReadable, sizeDec);
         const volumeUsd = formatLargeNumber(volumeReadable * price, 2);

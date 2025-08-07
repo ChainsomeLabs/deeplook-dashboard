@@ -1,5 +1,5 @@
 import { SmallLoading } from "../common";
-import type { PropsPool } from "../common/types";
+import { type PropsPool, type VolumeMultiwindow } from "../common/types";
 import { usePrices } from "../common/usePrice";
 import { formatLargeNumber, formatSizeNum, getSizeDec } from "../common/utils";
 import { useVolumeMultiwindow } from "./useVolumeMultiwindow";
@@ -20,7 +20,7 @@ const VolumeItem = ({
   </div>
 );
 
-export const VolumeMultiwindow = ({ pool }: PropsPool) => {
+export const Volume = ({ pool }: PropsPool) => {
   const { data, isLoading, isError } = useVolumeMultiwindow(pool);
   const { data: prices } = usePrices();
 
@@ -49,7 +49,8 @@ export const VolumeMultiwindow = ({ pool }: PropsPool) => {
         <div>Volume ({pool.base_asset_symbol})</div>
         <div>Volume (USD)</div>
       </div>
-      {Object.entries(data).map(([period, size], i) => {
+      {["1d", "7d", "30d"].map((period, i) => {
+        const size = data[period as keyof VolumeMultiwindow];
         const volumeReadable = formatSizeNum(size, pool);
         const volume = formatLargeNumber(volumeReadable, sizeDec);
         const volumeUsd = formatLargeNumber(volumeReadable * price, 2);

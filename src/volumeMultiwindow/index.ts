@@ -1,3 +1,3 @@
-import { VolumeMultiwindow } from "./VolumeMultiwindow";
+import { Volume } from "./VolumeMultiwindow";
 
-export { VolumeMultiwindow };
+export { Volume as VolumeMultiwindow };
