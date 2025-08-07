@@ -5,7 +5,7 @@ import { SmallLoading } from "../common/Loading";
 import type { Pool } from "../common/types";
 import { PoolInfo } from "../poolInfo";
 import { Card } from "../common";
-import { Depth } from "../depth/Depth";
+import { Depth } from "../depth";
 import { LatestTrades } from "../latestTrades";
 import { CandleChart } from "../candleChart";
 import { getNowToMinute } from "../common/utils";

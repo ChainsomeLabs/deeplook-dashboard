@@ -10,7 +10,15 @@ const Item = ({ left, right }: { left: ReactNode; right: ReactNode }) => (
   </div>
 );
 
-export const DepthView = ({ data, pool }: { data: DepthData; pool: Pool }) => {
+export const DepthView = ({
+  data,
+  pool,
+  quotePrice,
+}: {
+  data: DepthData;
+  pool: Pool;
+  quotePrice: number;
+}) => {
   const { mid, askLimit, bidLimit, asks, bids, spread } = data;
   const enoughData = asks.length + bids.length > 0;
 
@@ -26,7 +34,12 @@ export const DepthView = ({ data, pool }: { data: DepthData; pool: Pool }) => {
       <div>
         {enoughData ? (
           <div className="w-full h-72 rounded-lg p-4 border-2 border-surface-bright">
-            <DepthChart asks={asks} bids={bids} pool={pool} />
+            <DepthChart
+              asks={asks}
+              bids={bids}
+              pool={pool}
+              quotePrice={quotePrice}
+            />
           </div>
         ) : (
           <p className="text-center py-5">No orders withing range</p>

@@ -5,6 +5,7 @@ import { transformOrderbook } from "../orderbook/transform";
 import { useOrderbook } from "../orderbook/useOrderbook";
 import { calcDepth } from "./calc";
 import { DepthView } from "./DepthView";
+import { usePrices } from "../common/usePrice";
 
 type ButtonsProps = {
   options: number[];
@@ -44,10 +45,19 @@ const Header = ({ spread }: { spread: number }) => (
 
 export const Depth = ({ pool }: PropsPool) => {
   const orderbook = useOrderbook(pool);
+  const { data: prices } = usePrices();
+
+  const price =
+    pool.quote_asset_symbol === "USDC"
+      ? 1
+      : prices === undefined
+      ? undefined
+      : prices[pool.quote_asset_symbol];
+
   const spreadOptions = [2, 5, 10];
   const [spread, setSpread] = useState(spreadOptions[0]);
 
-  if (orderbook === null) {
+  if (orderbook === null || price === undefined) {
     return (
       <div>
         <Header spread={spread} />
@@ -87,7 +97,7 @@ export const Depth = ({ pool }: PropsPool) => {
     <div>
       <Header spread={spread} />
       <Buttons spread={spread} options={spreadOptions} setSpread={setSpread} />
-      <DepthView data={depthData} pool={pool} />
+      <DepthView data={depthData} pool={pool} quotePrice={price} />
     </div>
   );
 };

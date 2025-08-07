@@ -9,22 +9,58 @@ import {
 import type { OrderWithTotal, Pool } from "../common/types";
 import { formatLargeNumber, getPriceDec, getSizeDec } from "../common/utils";
 
+type Payload = { price: number; cumulative: number; cumulativeUsd: number };
+
+type TooltipProps = {
+  active?: boolean;
+  payload?: { payload: Payload }[];
+};
+
+const CustomTooltip = ({ active, payload }: TooltipProps) => {
+  if (!active || !payload?.length) return null;
+
+  const { price, cumulative, cumulativeUsd } = payload[0].payload;
+
+  return (
+    <div className="bg-[#1f1e31] p-2 rounded border border-[#333] text-sm text-white space-y-1">
+      <div>
+        <span className="text-gray-400">Price: </span>
+        {price.toFixed(4)}
+      </div>
+      <div>
+        <span className="text-gray-400">Cumulative: </span>
+        {cumulative.toLocaleString()}
+      </div>
+      <div>
+        <span className="text-gray-400">Cumulative USD: </span>$
+        {cumulativeUsd.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+      </div>
+    </div>
+  );
+};
+
 type Props = {
   bids: OrderWithTotal[];
   asks: OrderWithTotal[];
   pool: Pool;
+  quotePrice: number;
 };
 
-export const DepthChart = ({ bids, asks, pool }: Props) => {
+export const DepthChart = ({ bids, asks, pool, quotePrice }: Props) => {
   const data = [
     ...bids.map((d) => ({
       price: d.order.price,
       cumulative: d.total,
+      cumulativeUsd: d.quoteTotal * quotePrice,
       side: "bid",
     })),
     ...asks.map((d) => ({
       price: d.order.price,
       cumulative: d.total,
+      cumulativeUsd: d.quoteTotal * quotePrice,
       side: "ask",
     })),
   ];
@@ -56,25 +92,17 @@ export const DepthChart = ({ bids, asks, pool }: Props) => {
           width={60}
           tickFormatter={formatSize}
         />
-        <Tooltip
-          formatter={(value: number) => [
-            `${formatLargeNumber(value, sizeDec)}`,
-            "Cumulative",
-          ]}
-          contentStyle={{
-            backgroundColor: "#1f1e31", // your dark background
-            borderColor: "#333",
-            borderRadius: "0.25rem",
-          }}
-          itemStyle={{
-            color: "#f1f1f1", // light text
-            fontSize: "0.875rem",
-          }}
-          labelStyle={{
-            color: "#a0a0a0",
-            fontWeight: 500,
-          }}
+        {/* Right Y Axis - cumulative USD */}
+        <YAxis
+          dataKey="cumulativeUsd"
+          yAxisId="right"
+          orientation="right"
+          stroke="#aaa"
+          tick={{ fontSize: 12 }}
+          width={60}
+          tickFormatter={(val) => formatLargeNumber(val, 2)} // or whatever you want
         />
+        <Tooltip content={<CustomTooltip />} />
         <Area
           type="stepAfter"
           dataKey={(entry) => (entry.side === "bid" ? entry.cumulative : null)}
