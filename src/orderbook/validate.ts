@@ -34,24 +34,13 @@ export const validateOrderbook = (
   if (!isOrderbook(data)) {
     return null;
   }
-
-  const { lot_size, quote_asset_decimals } = pool;
-
   const tick = getPriceDec(pool);
-  const lot = Math.log10(10 ** quote_asset_decimals / lot_size);
-
-  const roundToStep = (value: number, step: number) => {
-    if (step < 0) {
-      return Number((value * 10 ** -step).toFixed(0));
-    }
-    return Number(value.toFixed(step));
-  };
 
   const validateSide = (side: Order[]): Order[] =>
     side
       .map((entry) => ({
         price: Number(entry.price.toFixed(tick)),
-        size: roundToStep(entry.size, lot),
+        size: Number(entry.size.toFixed(0)),
       }))
       .filter((entry) => entry.size > 0); // avoid rounding to 0
 
