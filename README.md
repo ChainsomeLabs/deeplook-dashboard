@@ -21,6 +21,8 @@ Run your own Deeplook backend, which exposes endpoints used by the dashboard. Ad
 VITE_API_URL=https://your.deeplook.api.url
 ```
 
+The Deeplook backend documentation and source code can be found here: https://github.com/ChainsomeLabs/deeplook .
+
 ### 2. Install dependencies
 
 We are using `pnpm` as a dependency manager, but feel free to use `npm`, `yarn` or any other.
