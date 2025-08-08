@@ -16,14 +16,14 @@ export const LatestTrades = ({ pool }: PropsPool) => {
   }
 
   return (
-    <div>
+    <div className="max-h-[650px] flex flex-col">
       <h3 className="pb-2">Latest Trades</h3>
-      <div className="w-full">
-        <div className="grid grid-cols-3 gap-2 px-2">
-          <div>Time</div>
-          <div>Price ({pool.quote_asset_symbol})</div>
-          <div>Volume ({pool.base_asset_symbol})</div>
-        </div>
+      <div className="grid grid-cols-3 gap-2 px-2">
+        <div>Time</div>
+        <div>Price ({pool.quote_asset_symbol})</div>
+        <div>Volume ({pool.base_asset_symbol})</div>
+      </div>
+      <div className="flex-1 overflow-y-auto px-2">
         {trades.map((t, i) => (
           <LatestTradeItem key={i} trade={t} pool={pool} />
         ))}
