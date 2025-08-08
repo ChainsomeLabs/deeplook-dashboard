@@ -16,11 +16,17 @@ export type OrderWithTotal = {
   quoteTotal: number;
 };
 
-export type OrderbookWithTotal = {
+export interface OrderbookWithTotal {
   bids: OrderWithTotal[];
   asks: OrderWithTotal[];
   max: number;
-};
+}
+
+export interface OrderbookWithTotalMidSpread extends OrderbookWithTotal {
+  mid: number;
+  spreadAbsolute: number;
+  spreadPercentage: number;
+}
 
 export interface Pool {
   pool_id: string;

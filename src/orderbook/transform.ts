@@ -2,7 +2,7 @@ import Decimal from "decimal.js";
 import type {
   Order,
   Orderbook,
-  OrderbookWithTotal,
+  OrderbookWithTotalMidSpread,
   OrderWithTotal,
 } from "../common/types";
 
@@ -37,7 +37,7 @@ type OrderbookTransformOptions = {
 export const transformOrderbook = (
   ob: Orderbook,
   options: OrderbookTransformOptions = {}
-): OrderbookWithTotal => {
+): OrderbookWithTotalMidSpread => {
   const { levels = 12 } = options;
   const asks = calculateRunningTotal(
     ob.asks.sort((a, b) => Number(a.price) - Number(b.price)).slice(0, levels)
@@ -45,6 +45,14 @@ export const transformOrderbook = (
   const bids = calculateRunningTotal(
     ob.bids.sort((a, b) => Number(b.price) - Number(a.price)).slice(0, levels)
   );
+  const bestAsk = asks.at(0)?.order.price || 0;
+  const bestBid = bids.at(0)?.order.price || 0;
+
+  const mid = (bestBid + bestAsk) / 2;
+
+  const spreadAbsolute = bestAsk - bestBid;
+
+  const spreadPercentage = mid === 0 ? 0 : (spreadAbsolute / mid) * 100;
 
   const max = Math.max(...[...asks, ...bids].map((o) => Number(o.total)));
 
@@ -52,5 +60,8 @@ export const transformOrderbook = (
     asks,
     bids,
     max,
+    mid,
+    spreadAbsolute,
+    spreadPercentage,
   };
 };
