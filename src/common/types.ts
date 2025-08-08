@@ -85,16 +85,16 @@ export type TradeInfo = {
 };
 
 export type AverageTradeSizes = {
-  "5min": string;
-  "15min": string;
-  "1h": string;
-  "24h": string;
+  "5min": number;
+  "15min": number;
+  "1h": number;
+  "24h": number;
 };
 
 export type VolumeMultiwindow = {
-  "1d": string;
-  "7d": string;
-  "30d": string;
+  "1d": number;
+  "7d": number;
+  "30d": number;
 };
 
 export type VolumeData = {
