@@ -1,7 +1,7 @@
 import { SmallLoading } from "../common";
 import { type PropsPool, type VolumeMultiwindow } from "../common/types";
 import { usePrices } from "../common/usePrice";
-import { formatLargeNumber, formatSizeNum, getSizeDec } from "../common/utils";
+import { formatLargeNumber, getSizeDec } from "../common/utils";
 import { useVolumeMultiwindow } from "./useVolumeMultiwindow";
 
 const VolumeItem = ({
@@ -51,9 +51,8 @@ export const Volume = ({ pool }: PropsPool) => {
       </div>
       {["1d", "7d", "30d"].map((period, i) => {
         const size = data[period as keyof VolumeMultiwindow];
-        const volumeReadable = formatSizeNum(size, pool);
-        const volume = formatLargeNumber(volumeReadable, sizeDec);
-        const volumeUsd = formatLargeNumber(volumeReadable * price, 2);
+        const volume = formatLargeNumber(size, sizeDec);
+        const volumeUsd = formatLargeNumber(size * price, 2);
         return (
           <VolumeItem
             key={i}
