@@ -81,8 +81,6 @@ const Chart = ({ data, dec, showVolume }: ChartProps) => {
       volumeSeries.setData(data.volume);
     }
 
-    chart.timeScale().fitContent();
-
     return () => {
       chart.remove();
     };
