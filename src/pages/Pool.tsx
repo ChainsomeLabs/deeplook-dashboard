@@ -32,7 +32,12 @@ export const PoolWithPool = ({ pool }: { pool: Pool }) => (
 
     {/* Latest Trades - narrow */}
     <Card className="order-3 col-span-12 sm:col-span-5 xl:col-span-3 min-w-[200px]">
-      <LatestTrades pool={pool} />
+      {/* Make sure latest trades do not expand the row */}
+      <div className="h-full w-full relative min-h-100">
+        <div className="absolute left-0 top-0 right-0 bottom-0">
+          <LatestTrades pool={pool} />
+        </div>
+      </div>
     </Card>
 
     {/* Pool Info - narrow */}

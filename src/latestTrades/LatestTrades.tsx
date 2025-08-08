@@ -16,7 +16,7 @@ export const LatestTrades = ({ pool }: PropsPool) => {
   }
 
   return (
-    <div className="max-h-[650px] flex flex-col">
+    <div className="h-full flex flex-col">
       <h3 className="pb-2">Latest Trades</h3>
       <div className="grid grid-cols-3 gap-2 px-2">
         <div>Time</div>
