@@ -43,7 +43,8 @@ export const OrderbookView = ({ orderbook, pool }: Props) => {
           quotePrice={quotePrice}
         />
       ))}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between text-lg bg-surface-container-highest">
+        <div>{/* empty div for alignment */}</div>
         <div>{formatLargeNumber(mid, priceDec)}</div>
         <div>{formatLargeNumber(spreadAbsolute, priceDec)}</div>
         <div>{spreadPercentage.toFixed(2)}%</div>
