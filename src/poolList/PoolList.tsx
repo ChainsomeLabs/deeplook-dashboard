@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SmallLoading } from "../common";
 import { PoolListItem } from "./PoolListItem";
 import { usePoolsWithFillSummary } from "./usePoolsFillSummary";
+import Decimal from "decimal.js";
 
 const Arrow = ({
   active,
@@ -90,8 +91,16 @@ export const PoolList = () => {
           ((b.price_close_24h - b.price_open_24h) / b.price_open_24h) * 100;
         break;
       case "volume":
-        aVal = Number(a.base_volume_24h) * a.base_price;
-        bVal = Number(b.base_volume_24h) * b.base_price;
+        aVal = new Decimal(a.base_volume_24h)
+          .div(Decimal.pow(10, a.base_asset_decimals))
+          .mul(new Decimal(a.base_price))
+          .toNumber();
+
+        bVal = new Decimal(b.base_volume_24h)
+          .div(Decimal.pow(10, b.base_asset_decimals))
+          .mul(new Decimal(b.base_price))
+          .toNumber();
+
         break;
     }
 
