@@ -55,7 +55,7 @@ export const Depth = ({ pool }: PropsPool) => {
       : prices[pool.quote_asset_symbol];
 
   const spreadOptions = [0.1, 0.5, 1, 2, 5, 10];
-  const [spread, setSpread] = useState(spreadOptions[0]);
+  const [spread, setSpread] = useState(spreadOptions[2]);
 
   if (orderbook === null || price === undefined) {
     return (

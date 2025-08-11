@@ -45,7 +45,7 @@ export const transformOrderbook = (
   const bids = calculateRunningTotal(
     ob.bids.sort((a, b) => Number(b.price) - Number(a.price)).slice(0, levels)
   );
-  const bestAsk = asks.at(0)?.order.price || 0;
+  const bestAsk = asks.at(-1)?.order.price || 0;
   const bestBid = bids.at(0)?.order.price || 0;
 
   const mid = (bestBid + bestAsk) / 2;
