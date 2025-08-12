@@ -37,10 +37,11 @@ async function apiFetch<T>(
 
 export const api = {
   getPools: async () => await apiFetch<Pool[]>("/get_pools"),
-  getOHLCV: async (poolName: string, startTime: number, endTime: number) =>
+  getOHLCV: async (poolName: string, startTime: number, endTime: number, timeframe: string) =>
     await apiFetch<OHLCV[]>(`/ohlcv/${poolName}`, {
       start_time: startTime.toString(10),
       end_time: endTime.toString(10),
+      timeframe: timeframe
     }),
   getFills24hSummary: async () =>
     await apiFetch<FillsSummary[]>("/fills_24h_summary"),

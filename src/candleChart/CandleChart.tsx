@@ -95,9 +95,17 @@ type Props = {
   end: number;
 };
 
+const AVAILABLE_TIMEFRAMES = [
+  {name: "1 minute", value: "1m"},
+  {name: "15 minutes", value: "15m"},
+  {name: "1 hour", value: "1h"},
+  {name: "4 hours", value: "4h"},
+];
+
 export const CandleChart = ({ pool, start, end }: Props) => {
   const [showVolume, setShowVolume] = useState(true);
-  const { data, isLoading, isError } = useOHLCV(pool, start, end);
+  const [timeFrame, setTimeFrame] = useState("1m");
+  const { data, isLoading, isError } = useOHLCV(pool, start, end, timeFrame);
 
   if (isLoading) {
     return (
@@ -130,6 +138,7 @@ export const CandleChart = ({ pool, start, end }: Props) => {
   return (
     <>
       <h3 className="pb-2">OHLC last 24h</h3>
+
       <div className="flex gap-4">
         Show volume:
         <input
@@ -138,6 +147,20 @@ export const CandleChart = ({ pool, start, end }: Props) => {
           onChange={() => setShowVolume(!showVolume)}
           className="accent-black"
         />
+      </div>
+      <div>
+        Select timeframe:
+        <select
+          id="timeframe"
+          value={timeFrame}
+          onChange={(e) => setTimeFrame(e.target.value)}
+        >
+          {
+            AVAILABLE_TIMEFRAMES.map(({name, value}) => (
+              <option key={value} value={value}>{name}</option>
+            ))
+          }
+        </select>
       </div>
 
       <div className="h-full w-full">
