@@ -8,7 +8,6 @@ import { Card } from "../common";
 import { Depth } from "../depth";
 import { LatestTrades } from "../latestTrades";
 import { CandleChart } from "../candleChart";
-import { getNowToMinute } from "../common/utils";
 import { AverageTrade } from "../averageTrade";
 import { VolumeMultiwindow } from "../volumeMultiwindow";
 
@@ -17,11 +16,7 @@ export const PoolWithPool = ({ pool }: { pool: Pool }) => (
     {/* Chart - wide */}
     <Card className="order-1 col-span-12 xl:col-span-5 min-w-0 min-h-100">
       <div className="w-full h-full flex flex-col aspect-square sm:aspect-video lg:aspect-auto">
-        <CandleChart
-          pool={pool}
-          start={getNowToMinute() - 24 * 60 * 60}
-          end={getNowToMinute()}
-        />
+        <CandleChart pool={pool} />
       </div>
     </Card>
 
