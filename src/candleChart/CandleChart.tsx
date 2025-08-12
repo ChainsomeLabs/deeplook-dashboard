@@ -147,12 +147,13 @@ export const CandleChart = ({ pool }: Props) => {
             type="checkbox"
             checked={showVolume}
             onChange={() => setShowVolume(!showVolume)}
-            className="accent-black"
+            className="accent-surface-bright scale-110"
             id="show-volume"
           />
         </div>
         <label htmlFor="timeframe">Select timeframe:</label>
         <select
+        className="bg-surface-bright p-0.5 rounded-lg mb-1 text-center"
           id="timeframe"
           value={timeFrame}
           onChange={(e) => setTimeFrame(e.target.value)}
