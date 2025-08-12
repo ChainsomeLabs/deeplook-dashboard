@@ -1,7 +1,8 @@
 import type { OrderbookWithTotalMidSpread, Pool } from "../common/types";
 import { usePrices } from "../common/usePrice";
-import { formatLargeNumber, getPriceDec } from "../common/utils";
+import { getPriceDec } from "../common/utils";
 import { OrderbookItemView } from "./OrderbookItemView";
+import { Mid } from "./OrderbookMidItem";
 
 type Props = { orderbook: OrderbookWithTotalMidSpread; pool: Pool };
 
@@ -43,13 +44,12 @@ export const OrderbookView = ({ orderbook, pool }: Props) => {
           quotePrice={quotePrice}
         />
       ))}
-      <div className="flex items-center justify-between text-lg bg-surface-container-highest">
-        <div>{/* empty div for alignment */}</div>
-        <div>{formatLargeNumber(mid, priceDec)}</div>
-        <div>{formatLargeNumber(spreadAbsolute, priceDec)}</div>
-        <div>{spreadPercentage.toFixed(2)}%</div>
-        <div>{/* empty div for alignment */}</div>
-      </div>
+      <Mid
+        mid={mid}
+        priceDec={priceDec}
+        spread={spreadAbsolute}
+        spreadPercentage={spreadPercentage}
+      />
       {bids.map((bid, i) => (
         <OrderbookItemView
           key={i}
