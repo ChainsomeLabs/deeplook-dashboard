@@ -37,16 +37,12 @@ export const usePoolsWithFillSummary = () => {
   const data = pools
     .map((pool) => {
       const fill = fillsMap.get(pool.pool_id);
-      if (!fill) return null;
-      console.log({
-        prices,
-        symbol: pool.base_asset_symbol,
-        price: prices[pool.base_asset_symbol],
-      });
+      const basePrice = prices[pool.base_asset_symbol];
+      if (!fill || !basePrice) return null;
       return {
         ...pool,
         ...fill,
-        base_price: prices[pool.base_asset_symbol],
+        base_price: basePrice,
       } as PoolWithFillsSummary;
     })
     .filter((item): item is PoolWithFillsSummary => item !== null);
